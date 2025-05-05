@@ -5,7 +5,16 @@ import { Routing } from './assests/js/routing';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Header from './component/header/header';
 import Sidemenu from './component/sidemenu/sidemenu';
+import SuperDashboard from './component/dashboards/superadmindashboard'
+import { useState } from 'react';
+import UserManagmnt from './component/usermanagement/usermanageent'
 function App() {
+
+  const [sidemenuOpen , setSidemenuopen] = useState(false)
+
+  const OpenSiemenu =()=>{
+    setSidemenuopen(!sidemenuOpen)
+  }
 
   if(window.location.pathname == '/' || window.location.pathname == Routing.Login){
     return(
@@ -23,11 +32,12 @@ function App() {
   else{
     return(
       <div className="App">
-        <Header/>
-        <Sidemenu/>
+        <Header OpenSide={OpenSiemenu}/>
+        <Sidemenu Menuopen={sidemenuOpen}/>
         <Router>
           <Routes>
-            <Route path={Routing.SuperDashboard} element={<Login />} />
+            <Route path={Routing.SuperDashboard} element={<SuperDashboard  />} />
+            <Route path={Routing.UserManagement} element={<UserManagmnt  />} />
           </Routes>
       </Router>
       </div>
