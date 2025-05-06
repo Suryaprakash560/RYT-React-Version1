@@ -62,9 +62,9 @@ export default function Login(){
                         <div className="">
                             <h4>USER LOGIN</h4>
                             <div className="Input-patent">
-                                <input type="text" placeholder="User mail " autocomplete="off" className="styled-input mb-1" value={LoginInformation.UserName} onChange={(e)=>{Handlechange("UserName",e)}} onBlur={()=>{OnBlurvalidation("UserName")}}/>
+                                <input type="text" placeholder="User mail "  className="styled-input mb-1" value={LoginInformation.UserName} onChange={(e)=>{Handlechange("UserName",e)}} onBlur={()=>{OnBlurvalidation("UserName")}}/>
                                 <div className="error-class mb-1 text-start">{LoginInformation.error.UserName}</div>
-                                <input type="password" placeholder="Password" autocomplete="off" className="styled-input mb-1" value={LoginInformation.Password} onChange={(e)=>{Handlechange("Password",e)}} onBlur={()=>{OnBlurvalidation("Password")}}/>
+                                <input type="password" placeholder="Password"  className="styled-input mb-1" value={LoginInformation.Password} onChange={(e)=>{Handlechange("Password",e)}} onBlur={()=>{OnBlurvalidation("Password")}}/>
                                 <div className="error-class mb-1 text-start">{LoginInformation.error.Password}</div>
                             </div>
                             <div className="Login-btn mt-3 ">

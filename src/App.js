@@ -7,7 +7,7 @@ import Header from './component/header/header';
 import Sidemenu from './component/sidemenu/sidemenu';
 import SuperDashboard from './component/dashboards/superadmindashboard'
 import { useState } from 'react';
-import UserManagmnt from './component/usermanagement/usermanageent'
+import UserManagmnt from './component/usermanagement/usermanagement'
 function App() {
 
   const [sidemenuOpen , setSidemenuopen] = useState(false)
