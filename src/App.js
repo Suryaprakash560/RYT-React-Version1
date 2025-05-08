@@ -7,7 +7,9 @@ import Header from './component/header/header';
 import Sidemenu from './component/sidemenu/sidemenu';
 import SuperDashboard from './component/dashboards/superadmindashboard'
 import { useState } from 'react';
-import UserManagmnt from './component/usermanagement/usermanagement'
+import UserManagmnt from './component/usermanagement/usermanagement';
+import TicketManagment from './component/ticketmanagement/ticketmanagment';
+import Settings from './component/settings/settings'
 function App() {
 
   const [sidemenuOpen , setSidemenuopen] = useState(false)
@@ -38,6 +40,8 @@ function App() {
           <Routes>
             <Route path={Routing.SuperDashboard} element={<SuperDashboard  />} />
             <Route path={Routing.UserManagement} element={<UserManagmnt  />} />
+            <Route path={Routing.TicketMananagment} element={<TicketManagment  />} />
+            <Route path={Routing.Settings} element={<Settings  />} />
           </Routes>
       </Router>
       </div>

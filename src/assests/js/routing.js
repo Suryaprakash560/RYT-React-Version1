@@ -1,5 +1,7 @@
 export let Routing = {
     Login : '/login',
     SuperDashboard : '/superadmindashboard',
-    UserManagement : '/usermanagment'
+    UserManagement : '/usermanagment',
+    TicketMananagment : '/ticketmanagment',
+    Settings : '/settings'
 }

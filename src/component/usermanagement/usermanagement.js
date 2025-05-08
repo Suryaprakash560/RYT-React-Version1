@@ -13,7 +13,7 @@ export default function UserManagmnt (){
         Desigination : '',
         Password : '',
         UserType : {},
-        RoleOptions : [],
+        RoleOptions : [{value : 1, label: 'srinivas'}],
         ProfileImage : '',
         error:{}
     })
@@ -44,7 +44,6 @@ export default function UserManagmnt (){
     }
 
     const SelectRole = (Selectedoption) =>{
-        console.log(Selectedoption)
         setUserInfo({
             ...UserInfo,
             UserType:Selectedoption
@@ -91,10 +90,10 @@ export default function UserManagmnt (){
                                         <div className="User-img-width mx-auto mb-1">
                                             <img src={Userimg} className="w-100"/>
                                         </div>
-                                        <p className="Dasboard-p  m-0 font-weight-700">Surya</p>
-                                        <p className="Dasboard-p  m-0 font-weight-700">Technology Enabler</p>
-                                        <p className="Dasboard-p  m-0 font-weight-700">Name@skillablers.com</p>
-                                        <p className="Dasboard-p  m-0 font-weight-700">9876543210</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">Surya</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">Technology Enabler</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">Name@skillablers.com</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">9876543210</p>
                                     </div>
                                 </div>
                             </div>

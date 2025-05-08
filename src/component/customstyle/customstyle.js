@@ -21,7 +21,8 @@ const CustomStyle = {
             textAlign : "left",
             position : "absolute",
             padding : '5px 20px',
-            color : "#6c757d"
+            color : "#6c757d",
+            fontSize : window.matchMedia("(max-width: 548px)").matches && '1.5vh'
         })
         
     }

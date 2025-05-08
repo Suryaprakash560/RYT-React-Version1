@@ -26,6 +26,9 @@ body{
       font-size: 1.2vh !important;
       -webkit-line-clamp: 3 !important;
     }
+    .normal-p-tag{
+      font-size: 1.2vh !important;
+    }
     .UserName,.asign-btn{
       font-size: 1.4vh !important;
     }
@@ -182,6 +185,7 @@ body{
     padding: 15px;
     border-radius: 5px;
     background-color: #161616;
+    height: 100%;
   }
   .Btn-class{
     border: none;
@@ -203,6 +207,10 @@ body{
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  }
+  .normal-p-tag{
+    font-size: 1vw;
+    color: #fff;
   }
   .font-bold{
     font-weight: 900;
@@ -278,4 +286,7 @@ body{
     width: 100%;
     left: 0;
     cursor: pointer;
+}
+.width-settings{
+  width: 50%;
 }
