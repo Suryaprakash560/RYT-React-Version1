@@ -28,7 +28,7 @@ export default function TicketManagment () {
             <div className="Inner-pages-container">
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div className="content-div">
+                        <div className="content-div h-100">
                             <div className="row w-100 mx-auto">
                                 <div className="col-6 p-0">
                                     <p className="normal-p-tag font-bold m-0 text-start">Ticket Raised By</p>
@@ -80,7 +80,7 @@ export default function TicketManagment () {
                         </div>
                     </div>
                     <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div className="content-div">
+                        <div className="content-div h-100">
                             <div className="row w-100 mx-auto">
                                 <div className="col-6 p-0">
                                     <p className="normal-p-tag font-bold m-0 text-start">Ticket Raised By</p>

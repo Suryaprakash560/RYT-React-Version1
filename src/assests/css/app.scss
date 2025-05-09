@@ -168,6 +168,7 @@ body{
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 2%;
+    padding-bottom: 2%;
   }
   .Heading-h2{
     color: #fff;
@@ -185,7 +186,7 @@ body{
     padding: 15px;
     border-radius: 5px;
     background-color: #161616;
-    height: 100%;
+    // height: 100%;
   }
   .Btn-class{
     border: none;
@@ -289,4 +290,11 @@ body{
 }
 .width-settings{
   width: 50%;
+}
+.styled-input:disabled{
+  background-color: #fff !important;
+}
+#Setnew-height{
+  overflow-y: auto;
+  margin: auto;
 }

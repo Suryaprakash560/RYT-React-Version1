@@ -9,7 +9,9 @@ import SuperDashboard from './component/dashboards/superadmindashboard'
 import { useState } from 'react';
 import UserManagmnt from './component/usermanagement/usermanagement';
 import TicketManagment from './component/ticketmanagement/ticketmanagment';
-import Settings from './component/settings/settings'
+import Settings from './component/settings/settings';
+import SystemEngineerDashboard from './component/dashboards/systemengineerdashboard';
+import SysticketManagment from './component/ticketmanagement/systicketmanagment';
 function App() {
 
   const [sidemenuOpen , setSidemenuopen] = useState(false)
@@ -42,6 +44,8 @@ function App() {
             <Route path={Routing.UserManagement} element={<UserManagmnt  />} />
             <Route path={Routing.TicketMananagment} element={<TicketManagment  />} />
             <Route path={Routing.Settings} element={<Settings  />} />
+            <Route path={Routing.SystemEngineerDashboard} element={<SystemEngineerDashboard  />} />
+            <Route path={Routing.SysticketManagment} element={<SysticketManagment  />} />
           </Routes>
       </Router>
       </div>

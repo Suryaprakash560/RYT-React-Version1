@@ -78,7 +78,7 @@ export default function UserManagmnt (){
                         <div className="content-div height-contentdiv">
                             <div className="row">
                                 <div className="col-6 col-sm-6 col-lg-4 col-md-4 col-xl-4 mb-2">
-                                    <div className="UserCard text-center">
+                                    <div className="UserCard text-center h-100">
                                         <div className="menuIcon d-flex" >
                                             <div className="Edit-dlt me-2">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
