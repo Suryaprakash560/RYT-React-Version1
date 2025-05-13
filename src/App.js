@@ -10,8 +10,9 @@ import { useState } from 'react';
 import UserManagmnt from './component/usermanagement/usermanagement';
 import TicketManagment from './component/ticketmanagement/ticketmanagment';
 import Settings from './component/settings/settings';
-import SystemEngineerDashboard from './component/dashboards/systemengineerdashboard';
+import UserDashboard from './component/dashboards/userdashboard';
 import SysticketManagment from './component/ticketmanagement/systicketmanagment';
+import SysAdminDashboard from './component/dashboards/sysadmindashboard'
 function App() {
 
   const [sidemenuOpen , setSidemenuopen] = useState(false)
@@ -44,8 +45,10 @@ function App() {
             <Route path={Routing.UserManagement} element={<UserManagmnt  />} />
             <Route path={Routing.TicketMananagment} element={<TicketManagment  />} />
             <Route path={Routing.Settings} element={<Settings  />} />
-            <Route path={Routing.SystemEngineerDashboard} element={<SystemEngineerDashboard  />} />
+            <Route path={Routing.Dashboard} element={<UserDashboard  />} />
             <Route path={Routing.SysticketManagment} element={<SysticketManagment  />} />
+            <Route path={Routing.SystemEngineerDashboard} element={<SysAdminDashboard  />} />
+            
           </Routes>
       </Router>
       </div>

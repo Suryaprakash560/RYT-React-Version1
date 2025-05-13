@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Userimg from '../../assests/images/Userimg.png'
 import Select from "react-select";
 import CustomStyle from '../customstyle/customstyle';
+import InputField from "../reuseablecomponent/inputfield";
 export default function UserManagmnt (){
 
     const [Settingopen, setsettingsopen] = useState(false)
@@ -102,16 +103,61 @@ export default function UserManagmnt (){
                     <div className="col-12 col-sm-12 col-lg-4 col-md-4 col-lg-4 pe-0">
                     <h4 className="Heading-h4 text-center">Add</h4>
                     <div className="content-div">
-                        <input type="text" placeholder="*Name"  className="styled-input mb-1 w-100" value={UserInfo.Name} onChange={(e)=>{Handlechange("Name",e)}} onBlur={()=>{OnBlurvalidation("Name")}}/>
-                        <div className="error-class mb-1 text-start">{UserInfo.error.Name}</div>
-                        <input type="text" placeholder="*Email"  className="styled-input mb-1 w-100" value={UserInfo.Email} onChange={(e)=>{Handlechange("Email",e)}} onBlur={()=>{OnBlurvalidation("Email")}}/>
-                        <div className="error-class mb-1 text-start">{UserInfo.error.Email}</div>
-                        <input type="number" placeholder="*MobileNuber"  className="styled-input mb-1 w-100" value={UserInfo.MobileNuber} onChange={(e)=>{Handlechange("MobileNuber",e)}} onBlur={()=>{OnBlurvalidation("MobileNuber")}}/>
-                        <div className="error-class mb-1 text-start">{UserInfo.error.MobileNuber}</div>
-                        <input type="text" placeholder="*Password"  className="styled-input mb-1 w-100" value={UserInfo.Password} onChange={(e)=>{Handlechange("Password",e)}} onBlur={()=>{OnBlurvalidation("Password")}}/>
-                        <div className="error-class mb-1 text-start">{UserInfo.error.Password}</div>
-                        <input type="text" placeholder="*Desigination"  className="styled-input mb-1 w-100" value={UserInfo.Desigination} onChange={(e)=>{Handlechange("Desigination",e)}} onBlur={()=>{OnBlurvalidation("Desigination")}}/>
-                        <div className="error-class mb-1 text-start">{UserInfo.error.Desigination}</div>
+                         <InputField
+                            inputchange={(e)=>{Handlechange("Name",e)}}
+                            Blur = {()=>{OnBlurvalidation("Name")}}
+                            value = {UserInfo.Name}
+                            placeholder = "* Name"
+                            classname = "styled-input mb-1 w-100"
+                            errors= {UserInfo.error}
+                            InputName = "Name"
+                            />
+                            <InputField
+                            inputchange={(e)=>{Handlechange("Email",e)}}
+                            Blur = {()=>{OnBlurvalidation("Email")}}
+                            value = {UserInfo.Email}
+                            placeholder = "* Email"
+                            classname = "styled-input mb-1 w-100"
+                            errors= {UserInfo.error}
+                            InputName = "Email"
+                            />
+                            <InputField
+                            inputchange={(e)=>{Handlechange("MobileNuber",e)}}
+                            Blur = {()=>{OnBlurvalidation("MobileNuber")}}
+                            value = {UserInfo.MobileNuber}
+                            placeholder = "* MobileNuber"
+                            classname = "styled-input mb-1 w-100"
+                            errors= {UserInfo.error}
+                            InputName = "MobileNuber"
+                            />
+                            <InputField
+                            inputchange={(e)=>{Handlechange("Password",e)}}
+                            Blur = {()=>{OnBlurvalidation("Password")}}
+                            value = {UserInfo.Password}
+                            placeholder = "* Password"
+                            classname = "styled-input mb-1 w-100"
+                            errors= {UserInfo.error}
+                            InputName = "Password"
+                            />
+                             <InputField
+                            inputchange={(e)=>{Handlechange("Desigination",e)}}
+                            Blur = {()=>{OnBlurvalidation("Desigination")}}
+                            value = {UserInfo.Desigination}
+                            placeholder = "* Desigination"
+                            classname = "styled-input mb-1 w-100"
+                            errors= {UserInfo.error}
+                            InputName = "Desigination"
+                            />
+                        {/* <input type="text" placeholder="*Name"  className="styled-input mb-1 w-100" value={UserInfo.Name} onChange={(e)=>{Handlechange("Name",e)}} onBlur={()=>{OnBlurvalidation("Name")}}/>
+                        <div className="error-class mb-1 text-start">{UserInfo.error.Name}</div> */}
+                        {/* <input type="text" placeholder="*Email"  className="styled-input mb-1 w-100" value={UserInfo.Email} onChange={(e)=>{Handlechange("Email",e)}} onBlur={()=>{OnBlurvalidation("Email")}}/>
+                        <div className="error-class mb-1 text-start">{UserInfo.error.Email}</div> */}
+                        {/* <input type="number" placeholder="*MobileNuber"  className="styled-input mb-1 w-100" value={UserInfo.MobileNuber} onChange={(e)=>{Handlechange("MobileNuber",e)}} onBlur={()=>{OnBlurvalidation("MobileNuber")}}/>
+                        <div className="error-class mb-1 text-start">{UserInfo.error.MobileNuber}</div> */}
+                        {/* <input type="text" placeholder="*Password"  className="styled-input mb-1 w-100" value={UserInfo.Password} onChange={(e)=>{Handlechange("Password",e)}} onBlur={()=>{OnBlurvalidation("Password")}}/>
+                        <div className="error-class mb-1 text-start">{UserInfo.error.Password}</div> */}
+                        {/* <input type="text" placeholder="*Desigination"  className="styled-input mb-1 w-100" value={UserInfo.Desigination} onChange={(e)=>{Handlechange("Desigination",e)}} onBlur={()=>{OnBlurvalidation("Desigination")}}/>
+                        <div className="error-class mb-1 text-start">{UserInfo.error.Desigination}</div> */}
                         <Select
                             placeholder = "*Select Role"
                             options={UserInfo.RoleOptions}

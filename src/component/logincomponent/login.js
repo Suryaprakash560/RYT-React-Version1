@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Ticket from '../../assests/images/Ticket.png'
+import InputField from "../reuseablecomponent/inputfield";
 export default function Login(){
     const [LoginInformation, setLoginInformation] = useState({
         UserName : '',
@@ -62,10 +63,28 @@ export default function Login(){
                         <div className="">
                             <h4>USER LOGIN</h4>
                             <div className="Input-patent">
-                                <input type="text" placeholder="User mail "  className="styled-input mb-1" value={LoginInformation.UserName} onChange={(e)=>{Handlechange("UserName",e)}} onBlur={()=>{OnBlurvalidation("UserName")}}/>
-                                <div className="error-class mb-1 text-start">{LoginInformation.error.UserName}</div>
-                                <input type="password" placeholder="Password"  className="styled-input mb-1" value={LoginInformation.Password} onChange={(e)=>{Handlechange("Password",e)}} onBlur={()=>{OnBlurvalidation("Password")}}/>
-                                <div className="error-class mb-1 text-start">{LoginInformation.error.Password}</div>
+                                <InputField
+                                inputchange={(e)=>{Handlechange("UserName",e)}}
+                                Blur = {()=>{OnBlurvalidation("UserName")}}
+                                value = {LoginInformation.UserName}
+                                placeholder = "User mail"
+                                classname = "styled-input mb-1 w-100"
+                                errors= {LoginInformation.error}
+                                InputName = "UserName"
+                                />
+                                {/* <input type="text" placeholder="User mail "  className="styled-input mb-1" value={LoginInformation.UserName} onChange={(e)=>{Handlechange("UserName",e)}} onBlur={()=>{OnBlurvalidation("UserName")}}/> */}
+                                {/* <div className="error-class mb-1 text-start">{LoginInformation.error.UserName}</div> */}
+                                {/* <input type="password" placeholder="Password"  className="styled-input mb-1" value={LoginInformation.Password} onChange={(e)=>{Handlechange("Password",e)}} onBlur={()=>{OnBlurvalidation("Password")}}/> */}
+                                <InputField
+                                inputchange={(e)=>{Handlechange("Password",e)}}
+                                Blur = {()=>{OnBlurvalidation("Password")}}
+                                value = {LoginInformation.Password}
+                                placeholder = "Password"
+                                classname = "styled-input mb-1 w-100"
+                                errors= {LoginInformation.error}
+                                InputName = "Password"
+                                />
+                                {/* <div className="error-class mb-1 text-start">{LoginInformation.error.Password}</div> */}
                             </div>
                             <div className="Login-btn mt-3 ">
                                 <button onClick={UserLogin}>Login</button>

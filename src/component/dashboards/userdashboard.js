@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SystemEngineerDashboard () {
+export default function UserDashboard () {
     return(
         <div className="Inner_Contaner">
             <h2 className="Heading-h2">DashBoard</h2>
@@ -56,7 +56,7 @@ export default function SystemEngineerDashboard () {
                 
             </div>
             <div className="d-flex justify-content-between mt-3 mb-2 align-items-end">
-                <h4 className="Heading-h4">Allocated Tickets</h4>
+                <h4 className="Heading-h4">Pending Tickets</h4>
                 {/* <button className="Btn-class">View Tickets</button> */}
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
