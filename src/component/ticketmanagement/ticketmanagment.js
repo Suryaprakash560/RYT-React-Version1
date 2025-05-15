@@ -27,7 +27,7 @@ export default function TicketManagment () {
             <h2 className="Heading-h2">Ticket Management</h2>
             <div className="Inner-pages-container">
                 <div className="row">
-                    <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
                         <div className="content-div h-100">
                             <div className="row w-100 mx-auto">
                                 <div className="col-6 p-0">
@@ -79,7 +79,7 @@ export default function TicketManagment () {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
                         <div className="content-div h-100">
                             <div className="row w-100 mx-auto">
                                 <div className="col-6 p-0">

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Userimg from '../../assests/images/Userimg.png'
 import Select from "react-select";
 import CustomStyle from '../customstyle/customstyle';
 import InputField from "../reuseablecomponent/inputfield";
+import {GetAllRole} from '../methods/method'
 export default function UserManagmnt (){
 
     const [Settingopen, setsettingsopen] = useState(false)
@@ -14,11 +15,24 @@ export default function UserManagmnt (){
         Desigination : '',
         Password : '',
         UserType : {},
-        RoleOptions : [{value : 1, label: 'srinivas'}],
+        RoleOptions : [],
         ProfileImage : '',
         error:{}
     })
+    useEffect(()=>{
+        Onload()
+    },[])
 
+    const Onload =async()=>{
+        let Roles=[]
+        await GetAllRole().then(res=>{
+            Roles = res.length>0?res:[]
+        })
+        setUserInfo({
+            ...UserInfo,
+            RoleOptions : Roles
+        })
+    }
     const Handlechange = (name,e) =>{
         setUserInfo({
             ...UserInfo,
@@ -51,7 +65,9 @@ export default function UserManagmnt (){
         })
     }
     const SelectProfile = (e) =>{
-        
+        const url = URL.createObjectURL(e.target.files[0]);
+        console.log(url)
+       
     }
     const Discard = () =>{
         setUserInfo({

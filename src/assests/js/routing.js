@@ -6,5 +6,6 @@ export let Routing = {
     Settings : '/settings',
     SystemEngineerDashboard : '/sysdashboard',
     SysticketManagment : '/systicketmanagment',
-    Dashboard : '/dashboard'
+    Dashboard : '/dashboard',
+    UserTicket : '/ticketcreation'
 }

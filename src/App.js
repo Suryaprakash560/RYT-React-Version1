@@ -12,7 +12,8 @@ import TicketManagment from './component/ticketmanagement/ticketmanagment';
 import Settings from './component/settings/settings';
 import UserDashboard from './component/dashboards/userdashboard';
 import SysticketManagment from './component/ticketmanagement/systicketmanagment';
-import SysAdminDashboard from './component/dashboards/sysadmindashboard'
+import SysAdminDashboard from './component/dashboards/sysadmindashboard';
+import Userticket from './component/ticketmanagement/ticketcreation';
 function App() {
 
   const [sidemenuOpen , setSidemenuopen] = useState(false)
@@ -48,7 +49,7 @@ function App() {
             <Route path={Routing.Dashboard} element={<UserDashboard  />} />
             <Route path={Routing.SysticketManagment} element={<SysticketManagment  />} />
             <Route path={Routing.SystemEngineerDashboard} element={<SysAdminDashboard  />} />
-            
+            <Route path={Routing.UserTicket} element={<Userticket  />} />
           </Routes>
       </Router>
       </div>
