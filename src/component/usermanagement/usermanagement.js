@@ -3,12 +3,13 @@ import Userimg from '../../assests/images/Userimg.png'
 import Select from "react-select";
 import CustomStyle from '../customstyle/customstyle';
 import InputField from "../reuseablecomponent/inputfield";
-import {GetAllRole} from '../methods/method'
+import {GetAllRole,Saveuser,Getalluser,Edituser,Deleteuser} from '../methods/method'
+import { type } from "@testing-library/user-event/dist/type";
 export default function UserManagmnt (){
 
     const [Settingopen, setsettingsopen] = useState(false)
     const [UserInfo, setUserInfo] = useState({
-        UserId : 0,
+        UserId : '',
         Name : '',
         Email : '',
         MobileNuber : '',
@@ -17,6 +18,7 @@ export default function UserManagmnt (){
         UserType : {},
         RoleOptions : [],
         ProfileImage : '',
+        AlluserArray : [],
         error:{}
     })
     useEffect(()=>{
@@ -24,13 +26,17 @@ export default function UserManagmnt (){
     },[])
 
     const Onload =async()=>{
-        let Roles=[]
+        let Roles=[],UserArray=[]
         await GetAllRole().then(res=>{
             Roles = res.length>0?res:[]
         })
+        await Getalluser().then(res=>{
+            UserArray = res.length>0?res:[]
+        })
         setUserInfo({
             ...UserInfo,
-            RoleOptions : Roles
+            RoleOptions : Roles,
+            AlluserArray : UserArray 
         })
     }
     const Handlechange = (name,e) =>{
@@ -49,7 +55,32 @@ export default function UserManagmnt (){
         }
         else{
             Error[name] = ''
-            flage = true
+            flage = true;
+            
+            if(name=="Email"){
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                let validemail = emailRegex.test(UserInfo[name])
+                if(validemail){
+                    Error[name] = ''
+                    flage = true
+                }
+                else{
+                    Error[name] = '* Please Enter Valid Email'
+                    flage = false  
+                }
+            }
+            if(name = 'MobileNuber'){
+                const indianMobileRegex = /^[6-9]\d{9}$/;
+                let validmobile = indianMobileRegex.test(UserInfo[name])
+                if(validmobile){
+                    Error[name] = ''
+                    flage = true
+                }
+                else{
+                    Error[name] = '* Please Enter Valid Mobilenumber'
+                    flage = false  
+                }
+            }
         }
         setUserInfo({
             ...UserInfo,
@@ -66,24 +97,97 @@ export default function UserManagmnt (){
     }
     const SelectProfile = (e) =>{
         const url = URL.createObjectURL(e.target.files[0]);
-        console.log(url)
        
     }
     const Discard = () =>{
         setUserInfo({
             ...UserInfo,
-            UserId : 0,
-        Name : '',
-        Email : '',
-        MobileNuber : '',
-        Desigination : '',
-        Password : '',
-        UserType : {},
-        error : {}
+            UserId : '',
+            Name : '',
+            Email : '',
+            MobileNuber : '',
+            Desigination : '',
+            Password : '',
+            UserType : {},
+            ProfileImage : '',
+            error:{},
         })
     }
-
-    const SaveUser = () =>{
+    const EditUser =(data)=>{
+        let Userrole = UserInfo.RoleOptions.filter(x=>x.value == data.RoleId._id)[0]
+            setUserInfo({
+                ...UserInfo,
+                UserId : data._id,
+                Name : data.UserName,
+                Email : atob(data.Email),
+                MobileNuber : data.MobileNumber,
+                Desigination : data.Desigination,
+                Password : atob(data.Password),
+                UserType : Userrole,
+                ProfileImage : data.ProfileImage,
+            })
+    }
+    const GetallUser = async() =>{
+        let UserArray=[]
+        await Getalluser().then(res=>{
+            UserArray = res.length>0?res:[]
+        })
+        setUserInfo({
+            ...UserInfo,
+            AlluserArray : UserArray,
+            UserId : '',
+            Name : '',
+            Email : '',
+            MobileNuber : '',
+            Desigination : '',
+            Password : '',
+            UserType : {},
+            ProfileImage : '',
+            error:{},
+        })
+    }
+    const SaveUser = async() =>{
+        let Error = UserInfo.error;
+        
+        let UserName = OnBlurvalidation("Name");
+        let Email = OnBlurvalidation("Email");
+        let MblNo = OnBlurvalidation("MobileNuber");
+        let Password = OnBlurvalidation("Password");
+        let Desigination = OnBlurvalidation("Desigination");
+        let RoleId = UserInfo.UserType.label !=undefined ? true : false;
+        if(!RoleId){
+            Error['Role'] = '* please select Role'
+            setUserInfo({
+                ...UserInfo,
+                error : Error
+            })
+        }
+        else{
+            Error['Role'] = ''
+            setUserInfo({
+                ...UserInfo,
+                error : Error
+            })
+        }
+        if(UserName && Email && MblNo && Password && Desigination && RoleId){
+            if(UserInfo.UserId ==''){
+                await Saveuser(UserInfo.Name,btoa(UserInfo.Email),btoa(UserInfo.Password),UserInfo.MobileNuber,UserInfo.Desigination,UserInfo.ProfileImage,UserInfo.UserType.value).then(res=>{
+                })
+            }
+            else{
+                await Edituser(UserInfo.UserId,UserInfo.Name,btoa(UserInfo.Email),btoa(UserInfo.Password),UserInfo.MobileNuber,UserInfo.Desigination,UserInfo.ProfileImage,UserInfo.UserType.value).then(res=>{
+                    
+                })
+            }
+            GetallUser()
+            
+        }
+        
+    }
+    const DeleteUsers =(UserId)=>{
+        Deleteuser(UserId).then(res=>{
+            GetallUser()
+        })
     }
     return(
         <div className="Inner_Contaner">
@@ -94,25 +198,31 @@ export default function UserManagmnt (){
                         <h4 className="Heading-h4 text-center">View</h4>
                         <div className="content-div height-contentdiv">
                             <div className="row">
-                                <div className="col-6 col-sm-6 col-lg-4 col-md-4 col-xl-4 mb-2">
+                                {UserInfo.AlluserArray.length>0?
+                                UserInfo.AlluserArray.map((x,i)=>
+                                     <div className="col-6 col-sm-6 col-lg-4 col-md-4 col-xl-4 mb-2" key={i}>
                                     <div className="UserCard text-center h-100">
                                         <div className="menuIcon d-flex" >
-                                            <div className="Edit-dlt me-2">
+                                            <div className="Edit-dlt me-2" onClick={()=>{EditUser(x)}}>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                                             </div>
-                                            <div className="Edit-dlt">
+                                            <div className="Edit-dlt" onClick={()=>{DeleteUsers(x._id)}}>
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                         <div className="User-img-width mx-auto mb-1">
-                                            <img src={Userimg} className="w-100"/>
+                                            <img src={x.ProfileImage==''?Userimg:''} className="w-100"/>
                                         </div>
-                                        <p className="normal-p-tag  m-0 font-weight-700">Surya</p>
-                                        <p className="normal-p-tag  m-0 font-weight-700">Technology Enabler</p>
-                                        <p className="normal-p-tag  m-0 font-weight-700">Name@skillablers.com</p>
-                                        <p className="normal-p-tag  m-0 font-weight-700">9876543210</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">{x.UserName}</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">{x.Desigination}</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">{atob(x.Email)}</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">{x.MobileNumber}</p>
+                                        <p className="normal-p-tag  m-0 font-weight-700">{x.RoleId.RoleName}</p>
                                     </div>
                                 </div>
+                                )
+                               :
+                                <>No Records</>}
                             </div>
                         </div>
                     </div>
@@ -122,7 +232,7 @@ export default function UserManagmnt (){
                          <InputField
                             inputchange={(e)=>{Handlechange("Name",e)}}
                             Blur = {()=>{OnBlurvalidation("Name")}}
-                            value = {UserInfo.Name}
+                            inputvaluevalue = {UserInfo.Name}
                             placeholder = "* Name"
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
@@ -131,7 +241,7 @@ export default function UserManagmnt (){
                             <InputField
                             inputchange={(e)=>{Handlechange("Email",e)}}
                             Blur = {()=>{OnBlurvalidation("Email")}}
-                            value = {UserInfo.Email}
+                            inputvaluevalue = {UserInfo.Email}
                             placeholder = "* Email"
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
@@ -140,7 +250,7 @@ export default function UserManagmnt (){
                             <InputField
                             inputchange={(e)=>{Handlechange("MobileNuber",e)}}
                             Blur = {()=>{OnBlurvalidation("MobileNuber")}}
-                            value = {UserInfo.MobileNuber}
+                            inputvaluevalue = {UserInfo.MobileNuber}
                             placeholder = "* MobileNuber"
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
@@ -149,7 +259,7 @@ export default function UserManagmnt (){
                             <InputField
                             inputchange={(e)=>{Handlechange("Password",e)}}
                             Blur = {()=>{OnBlurvalidation("Password")}}
-                            value = {UserInfo.Password}
+                            inputvaluevalue = {UserInfo.Password}
                             placeholder = "* Password"
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
@@ -158,7 +268,7 @@ export default function UserManagmnt (){
                              <InputField
                             inputchange={(e)=>{Handlechange("Desigination",e)}}
                             Blur = {()=>{OnBlurvalidation("Desigination")}}
-                            value = {UserInfo.Desigination}
+                            inputvaluevalue = {UserInfo.Desigination}
                             placeholder = "* Desigination"
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
@@ -185,12 +295,14 @@ export default function UserManagmnt (){
                             value={UserInfo.UserType.label!==undefined ? UserInfo.UserType : "*Select Role"}
                             className="mb-2"
                         />
+                        <div className="error-class mb-1 text-start">{UserInfo.error.Role}</div>
+                        
                         <div className="Profile-img-div " onChange={(e)=>{SelectProfile(e)}}>
                             <i class="fa fa-picture-o" aria-hidden="true"></i>   Choose profile<input type="file" accept=".png,.jpg,.jpeg"/>
                         </div>
                         <div className="d-flex align-items-center justify-content-between mt-3">
                             <button className="Btn-class" onClick={Discard}>Discard</button>
-                            <button className="Btn-class" onClick={SaveUser}>Save</button>
+                            <button className="Btn-class" onClick={SaveUser}>{UserInfo.UserId ==''?'Save' : "Update"}</button>
                         </div>
                     </div>
                     </div>

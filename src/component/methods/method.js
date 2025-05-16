@@ -3,8 +3,81 @@ import { APIurl } from "../../assests/js/config";
 
 export function GetAllRole(){
     return(axios({
-        url : APIurl + '/getroles',
+        url : APIurl + '/api/getroles',
         method : 'GET'
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    })
+)
+}
+
+
+export function Saveuser(UserName,Email,Password,MobileNumber,Desigination,ProfileImage,RoleId){
+    return(axios({
+        url : APIurl + '/api/saveuserinfo',
+        method : 'POST',
+        data : {
+            UserName : UserName,
+            Email : Email,
+            Password: Password,
+            MobileNumber : MobileNumber,
+            Desigination : Desigination,
+            ProfileImage : ProfileImage,
+            RoleId : RoleId
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    })
+)
+}
+
+export function Getalluser(){
+    return(axios({
+        url : APIurl + '/api/getalluser',
+        method : 'GET',
+        data : {
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    })
+)
+}
+
+export function Edituser(UserId,UserName,Email,Password,MobileNumber,Desigination,ProfileImage,RoleId){
+    return(axios({
+        url : APIurl + '/api/edituser',
+        method : 'POST',
+        data : {
+            UserId:UserId,
+            UserName : UserName,
+            Email : Email,
+            Password: Password,
+            MobileNumber : MobileNumber,
+            Desigination : Desigination,
+            ProfileImage : ProfileImage,
+            RoleId : RoleId
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    })
+)
+}
+
+export function Deleteuser(UserId){
+    return(axios({
+        url : APIurl + '/api/deleteuser',
+        method : 'POST',
+        data : {
+            UserId:UserId,
+        }
     }).then((res)=>{
         return res.data
     }).catch((err)=>{

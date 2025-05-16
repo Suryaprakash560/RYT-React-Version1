@@ -210,8 +210,9 @@ body{
   text-overflow: ellipsis;
   }
   .normal-p-tag{
-    font-size: 1vw;
+    font-size: 0.9vw;
     color: #fff;
+    word-break: break-all;
   }
   .font-bold{
     font-weight: 900;
