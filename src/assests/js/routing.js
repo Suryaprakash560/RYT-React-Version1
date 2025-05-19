@@ -7,5 +7,6 @@ export let Routing = {
     SystemEngineerDashboard : '/sysdashboard',
     SysticketManagment : '/systicketmanagment',
     Dashboard : '/dashboard',
-    UserTicket : '/ticketcreation'
+    UserTicket : '/ticketcreation',
+    NoSession : '/nosession'
 }

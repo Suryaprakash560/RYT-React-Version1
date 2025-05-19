@@ -4,7 +4,8 @@ import { APIurl } from "../../assests/js/config";
 export function GetAllRole(){
     return(axios({
         url : APIurl + '/api/getroles',
-        method : 'GET'
+        method : 'GET',
+        withCredentials : true
     }).then((res)=>{
         return res.data
     }).catch((err)=>{
@@ -18,6 +19,7 @@ export function Saveuser(UserName,Email,Password,MobileNumber,Desigination,Profi
     return(axios({
         url : APIurl + '/api/saveuserinfo',
         method : 'POST',
+        withCredentials : true,
         data : {
             UserName : UserName,
             Email : Email,
@@ -39,6 +41,7 @@ export function Getalluser(){
     return(axios({
         url : APIurl + '/api/getalluser',
         method : 'GET',
+        withCredentials : true,
         data : {
         }
     }).then((res)=>{
@@ -53,6 +56,7 @@ export function Edituser(UserId,UserName,Email,Password,MobileNumber,Desiginatio
     return(axios({
         url : APIurl + '/api/edituser',
         method : 'POST',
+        withCredentials : true,
         data : {
             UserId:UserId,
             UserName : UserName,
@@ -74,7 +78,8 @@ export function Edituser(UserId,UserName,Email,Password,MobileNumber,Desiginatio
 export function Deleteuser(UserId){
     return(axios({
         url : APIurl + '/api/deleteuser',
-        method : 'POST',
+        method : 'DELETE',
+        withCredentials : true,
         data : {
             UserId:UserId,
         }
@@ -84,4 +89,32 @@ export function Deleteuser(UserId){
         console.log(err)
     })
 )
+}
+
+export function UsersLogin (Email,Password){
+    return(axios({
+        url : APIurl + '/api/Login',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+            Email : Email,
+            Password : Password 
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function Getsession (){
+    return(axios({
+        url : APIurl + '/api/getsession',
+        method : 'GET',
+        withCredentials : true,
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
 }

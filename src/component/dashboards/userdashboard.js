@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function UserDashboard () {
+    // useEffect(()=>{},[])
     return(
         <div className="Inner_Contaner">
             <h2 className="Heading-h2">DashBoard</h2>
