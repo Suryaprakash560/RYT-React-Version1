@@ -118,3 +118,82 @@ export function Getsession (){
         console.log(err)
     }))
 }
+
+export function Logout (){
+    return(axios({
+        url : APIurl + '/api/logout',
+        method : 'GET',
+        withCredentials : true,
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function Saveticket (TicketDescription,TicketStatus,SysAdminId,WorksDone){
+    return(axios({
+        url : APIurl + '/api/saveticket',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+            TicketDescription : TicketDescription,
+            TicketStatus : TicketStatus,
+            SysAdminId : SysAdminId,
+            WorksDone : WorksDone
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function Getallusertickets (){
+    return(axios({
+        url : APIurl + '/api/getallusertickets',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+            
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function UpdateTicket (TicketDescription,TicketStatus,SysAdminId,WorksDone,TicketId){
+    return(axios({
+        url : APIurl + '/api/updateticket',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+           TicketDescription : TicketDescription,
+           TicketStatus : TicketStatus,
+           SysAdminId : SysAdminId,
+           WorksDone : WorksDone,
+           TicketId : TicketId 
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function GetallTickets (){
+    return(axios({
+        url : APIurl + '/api/getallTickets',
+        method : 'GET',
+        withCredentials : true,
+        data : {
+           
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}

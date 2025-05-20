@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import RYTLogo from '../../assests/images/RYT-logo.png';
-// import {Getsession} from '../methods/method';
+import {Logout} from '../methods/method';
+import { Routing } from "../../assests/js/routing";
 const NOOP = {}
 export default function Header ({OpenSide=NOOP,UserName}) {
     const [UserINfo, setUserInfo] = useState({
         UserName:''
     })
 
+    const LogoutUser = () =>{
+        Logout().then(res=>{
+            if(res[0].Status==1){
+                window.location.href = Routing.Login
+            }
+        })
+    }
     useEffect(()=>{
         // Getsession().then(res=>{
         //     setUserInfo({
@@ -25,7 +33,7 @@ export default function Header ({OpenSide=NOOP,UserName}) {
                         <div className="d-flex align-items-center UserInfo-div justify-content-end">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <div className="UserName">Hii {UserName}</div>
-                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                            <i class="fa fa-power-off" aria-hidden="true" onClick={LogoutUser}></i>
                         </div>
                     </div>
                 </div>

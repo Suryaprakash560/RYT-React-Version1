@@ -181,6 +181,7 @@ body{
     overflow-x: auto;
     background-color: #303030;
     padding: 10px;
+    min-height: 10vw;
   }
   .content-div{
     padding: 15px;
@@ -200,11 +201,11 @@ body{
     color: #fff;
   }
   .Dasboard-p{
-    font-size: 1vw;
+    font-size: 0.9vw;
     color: #fff;
-    word-break: break-all;
+    word-break: break-word;
     display: -webkit-box;
-  -webkit-line-clamp: 3;     /* 👈 number of lines to show */
+  -webkit-line-clamp: 3;     
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -212,7 +213,7 @@ body{
   .normal-p-tag{
     font-size: 0.9vw;
     color: #fff;
-    word-break: break-all;
+    word-break: break-word;
   }
   .font-bold{
     font-weight: 900;
@@ -298,4 +299,10 @@ body{
 #Setnew-height{
   overflow-y: auto;
   margin: auto;
+}
+.no-record-clr{
+  color: #fff;
+}
+.word-break-dash{
+  word-break: break-all !important;
 }

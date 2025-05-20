@@ -1,7 +1,24 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import {Getallusertickets,UpdateTicket} from '../methods/method'
 export default function UserDashboard () {
-    // useEffect(()=>{},[])
+
+    const [TicketArray,setTicketArray] = useState({
+        TickersArray :[]
+    })
+    useEffect(()=>{
+        onload()
+    },[])
+
+    const onload = async() =>{
+        let TicketArrayview=[]
+        await Getallusertickets().then(res=>{
+            TicketArrayview = res.length>0?res:[]
+        })
+        setTicketArray({
+            ...TicketArray,
+            TickersArray:TicketArrayview
+        })
+    }
     return(
         <div className="Inner_Contaner">
             <h2 className="Heading-h2">DashBoard</h2>
@@ -10,30 +27,17 @@ export default function UserDashboard () {
                 <button className="Btn-class">View All Tickets</button>
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
-            <div className=" col-12 col-sm-12 col-lg-4 col-md-4 col-lg-4 ms-1 me-2">
+                {TicketArray.TickersArray.filter(ele=>ele.TicketStatus == 2).length>0?
+                <>
+                    {TicketArray.TickersArray.filter(ele=>ele.TicketStatus == 2).map((x,i)=>
+                     <div className=" col-12 col-sm-12 col-lg-4 col-md-4 col-lg-4 ms-1 me-2" key={i}>
                     <div className="content-div h-100">
-                        <div className="row w-100 mx-auto">
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p font-bold m-0 text-start">Ticket Raised By</p>
-                            </div>
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Name</p>
-                            </div>
-                        </div>
-                        <div className="row w-100 mx-auto">
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p font-bold m-0 text-start">Desigination</p>
-                            </div>
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Technology</p>
-                            </div>
-                        </div>
                         <div className="row w-100 mx-auto">
                             <div className="col-6 p-0">
                                 <p className="Dasboard-p font-bold m-0 text-start">Descrption</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <p className="Dasboard-p  m-0 text-start">: {x.TicketDescription}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">
@@ -41,7 +45,7 @@ export default function UserDashboard () {
                                 <p className="Dasboard-p font-bold m-0 text-start">Ticket Status</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Closed</p>
+                                <p className="Dasboard-p  m-0 text-start">: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">
@@ -49,11 +53,24 @@ export default function UserDashboard () {
                                 <p className="Dasboard-p font-bold m-0 text-start">Worked By</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Srinivas</p>
+                                <p className="Dasboard-p  m-0 text-start">: {x.SysAdminId.UserName}</p>
+                            </div>
+                        </div>
+                        <div className="row w-100 mx-auto">
+                            <div className="col-6 p-0">
+                                <p className="Dasboard-p font-bold m-0 text-start">Works Done</p>
+                            </div>
+                            <div className="col-6 p-0">
+                                <p className="Dasboard-p  m-0 text-start">: {x.WorksDone}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                    )}
+                
+                </>
+                :<div className="no-record-clr d-flex justify-content-center align-items-center w-100 h-auto">No Records</div>}
+           
                 
             </div>
             <div className="d-flex justify-content-between mt-3 mb-2 align-items-end">
@@ -61,30 +78,17 @@ export default function UserDashboard () {
                 {/* <button className="Btn-class">View Tickets</button> */}
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
-                <div className=" col-12 col-sm-6 col-lg-4 col-md-4 col-lg-4 ms-1 me-2">
+                {TicketArray.TickersArray.filter(ele=>ele.TicketStatus != 2).length>0?
+                <>
+                    {TicketArray.TickersArray.filter(ele=>ele.TicketStatus != 2).map((x,i)=>
+                    <div className=" col-12 col-sm-6 col-lg-4 col-md-4 col-lg-4 ms-1 me-2">
                     <div className="content-div h-100">
-                        <div className="row w-100 mx-auto">
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p font-bold m-0 text-start">Ticket Raised By</p>
-                            </div>
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Name</p>
-                            </div>
-                        </div>
-                        <div className="row w-100 mx-auto">
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p font-bold m-0 text-start">Desigination</p>
-                            </div>
-                            <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Technology Enabler</p>
-                            </div>
-                        </div>
                         <div className="row w-100 mx-auto">
                             <div className="col-6 p-0">
                                 <p className="Dasboard-p font-bold m-0 text-start">Descrption</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <p className="Dasboard-p  m-0 text-start">: {x.TicketDescription}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">
@@ -92,19 +96,24 @@ export default function UserDashboard () {
                                 <p className="Dasboard-p font-bold m-0 text-start">Ticket Status</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Pending</p>
+                                <p className="Dasboard-p  m-0 text-start">: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p font-bold m-0 text-start">Assigned By</p>
+                                <p className="Dasboard-p font-bold m-0 text-start">Assigned To</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: Name</p>
+                                <p className="Dasboard-p  m-0 text-start">: {x.SysAdminId.UserName}</p>
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
+                    )}
+                </>
+                :<div className="no-record-clr d-flex justify-content-center align-items-center w-100 h-auto">No Records</div>
+                }
+                
             </div>
         </div>
     )
