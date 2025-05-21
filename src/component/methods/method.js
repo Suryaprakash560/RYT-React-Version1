@@ -164,6 +164,21 @@ export function Getallusertickets (){
     }))
 }
 
+export function GetallSysadmTickets (){
+    return(axios({
+        url : APIurl + '/api/getallsysadmtickets',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+            
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
 export function UpdateTicket (TicketDescription,TicketStatus,SysAdminId,WorksDone,TicketId){
     return(axios({
         url : APIurl + '/api/updateticket',

@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import Select from "react-select";
 import CustomStyle from '../customstyle/customstyle';
-import {Getalluser,GetallTickets} from '../methods/method';
+import {Getalluser,GetallTickets,UpdateTicket} from '../methods/method';
 
 export default function TicketManagment () {
     const [TicketInfo , setTicketInfo] = useState({
@@ -47,6 +47,12 @@ export default function TicketManagment () {
             ...TicketInfo,
             SelectedAdmin:{}
         })
+    }
+
+    const AssignnewAdmin = (data) =>{
+        UpdateTicket(data.TicketDescription,data.TicketStatus,TicketInfo.SelectedAdmin.value,data.WorksDone,data._id).then(res=>{
+            console.log(res)
+            })
     }
     return(
         <div className="Inner_Contaner">
@@ -113,7 +119,7 @@ export default function TicketManagment () {
                                         {TicketInfo.SelectedAdmin.label !==undefined&&
                                         <div className="d-flex justify-content-between">
                                             <button className="asign-btn mt-2" onClick={CancelSeleted}>Cancel</button>
-                                            <button className="asign-btn mt-2">Assign</button>
+                                            <button className="asign-btn mt-2" onClick={()=>{AssignnewAdmin(x)}}>Assign</button>
                                         </div>
                                         }
                                 </div>

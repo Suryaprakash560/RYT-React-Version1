@@ -122,6 +122,9 @@ body{
   .Header-container{
     padding: 10px 35px;
     background: #35455E;
+    position: sticky;
+    top: 0;
+    z-index: 9999999;
   }
   .UserInfo-div{
     i{
@@ -305,4 +308,16 @@ body{
 }
 .word-break-dash{
   word-break: break-all !important;
+}
+.Redclr{
+  color: red !important;
+  font-weight: 700;
+}
+.YellowClr{
+  color: #f7dc48 !important;
+  font-weight: 700;
+}
+.greenclr{
+  color: green;
+  font-weight: 700;
 }

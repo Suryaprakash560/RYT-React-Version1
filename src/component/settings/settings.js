@@ -69,7 +69,7 @@ export default function Settings () {
                         inputchange={(e)=>{Handlechange("NewPassword",e)}}
                         Blur = {()=>{OnBlurvalidation("NewPassword")}}
                         value = {SettingsInfo.NewPassword}
-                        placeholder = "* New Passwordl"
+                        placeholder = "* New Password"
                         classname = "styled-input mb-1 w-100"
                         errors= {SettingsInfo.error}
                         InputName = "NewPassword"
