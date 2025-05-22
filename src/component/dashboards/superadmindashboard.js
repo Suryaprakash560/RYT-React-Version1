@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Userimg from '../../assests/images/Userimg.png';
 import {Getalluser,GetallTickets} from '../methods/method';
-import TicketManagment from "../ticketmanagement/ticketmanagment";
+import { Routing } from "../../assests/js/routing";
+import {RYTUrl} from '../../assests/js/config'
 export default function SuperAdminDashboard () {
 
     const [DashboardDetails, setDashboardDetails] = useState({
@@ -27,12 +28,38 @@ export default function SuperAdminDashboard () {
             TicketsArray : TicketArray
         })
     }
+    const Redirectpage = (Url) =>{
+        window.location.href = Url
+    }
+
+    const Redirectedit =(Url,UserID)=>{
+        let Userobj = {
+            UserId : UserID
+        }
+        ///let Obj = {id:ParticipantId}
+        let URL = RYTUrl +Url+ '?' + btoa(JSON.stringify(Userobj))
+        let a = document.createElement('a');
+        a.href = URL;
+        a.target = "_self"
+        a.click();
+    }
+    const RedirectAsign =(Url,Ticketid)=>{
+        let Ticketobj = {
+            Ticketid : Ticketid
+        }
+        ///let Obj = {id:ParticipantId}
+        let URL = RYTUrl +Url+ '?' + btoa(JSON.stringify(Ticketobj))
+        let a = document.createElement('a');
+        a.href = URL;
+        a.target = "_self"
+        a.click();
+    }
     return(
         <div className="Inner_Contaner">
             <h2 className="Heading-h2">DashBoard</h2>
             <div className="d-flex justify-content-between mb-2 align-items-end">
                 <h4 className="Heading-h4">User Details</h4>
-                <button className="Btn-class">Create User</button>
+                <button className="Btn-class" onClick={()=>{Redirectpage(Routing.UserManagement)}}>Create User</button>
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
                 {DashboardDetails.UsersArray.length>0?
@@ -46,7 +73,7 @@ export default function SuperAdminDashboard () {
                                         </div>
                                     </div>
                                     <div className="col-9 d-flex align-items-center justify-content-end">
-                                        <div className="Edit-dlt me-3" >
+                                        <div className="Edit-dlt me-3" onClick={()=>{Redirectedit(Routing.UserManagement,ele._id)}}>
                                             {/* {ele._id} */}
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </div>
@@ -106,7 +133,7 @@ export default function SuperAdminDashboard () {
             </div>
             <div className="d-flex justify-content-between mt-3 mb-2 align-items-end">
                 <h4 className="Heading-h4">Ticket Deails</h4>
-                <button className="Btn-class">View Tickets</button>
+                <button className="Btn-class" onClick={()=>{Redirectpage(Routing.TicketMananagment)}}>View Tickets</button>
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
                 {DashboardDetails.TicketsArray.length>0?
@@ -142,7 +169,7 @@ export default function SuperAdminDashboard () {
                                 <p className="Dasboard-p font-bold m-0 text-start">Ticket Status</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
+                                <p className={x.TicketStatus == 0?"Dasboard-p  m-0 text-start Redclr" :x.TicketStatus == 1? "Dasboard-p  m-0 text-start YellowClr font-bold" : "Dasboard-p  m-0 text-start greenclr"}>: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">
@@ -155,7 +182,7 @@ export default function SuperAdminDashboard () {
                         </div>
                         {x.TicketStatus == 0&&
                         <div className="row w-100 mx-auto mt-2">
-                            <button className="asign-btn">Re-Assign Admin</button>
+                            <button className="asign-btn" onClick={()=>{RedirectAsign(Routing.TicketMananagment,x._id)}}>Re-Assign Admin</button>
                         </div>}
                     </div>
                 </div>

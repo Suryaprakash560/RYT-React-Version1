@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Getallusertickets,UpdateTicket} from '../methods/method'
+import { Routing } from "../../assests/js/routing";
 export default function UserDashboard () {
 
     const [TicketArray,setTicketArray] = useState({
@@ -19,12 +20,15 @@ export default function UserDashboard () {
             TickersArray:TicketArrayview
         })
     }
+    const Redirectpage = (Url) =>{
+        window.location.href = Url
+    }
     return(
         <div className="Inner_Contaner">
             <h2 className="Heading-h2">DashBoard</h2>
             <div className="d-flex justify-content-between mb-2 align-items-end">
                 <h4 className="Heading-h4">Resolved Tickets</h4>
-                <button className="Btn-class">View All Tickets</button>
+                <button className="Btn-class" onClick={()=>{Redirectpage(Routing.UserTicket)}}>View All Tickets</button>
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
                 {TicketArray.TickersArray.filter(ele=>ele.TicketStatus == 2).length>0?
@@ -45,7 +49,7 @@ export default function UserDashboard () {
                                 <p className="Dasboard-p font-bold m-0 text-start">Ticket Status</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
+                                <p className={x.TicketStatus == 0?"Dasboard-p  m-0 text-start Redclr" :x.TicketStatus == 1? "Dasboard-p  m-0 text-start YellowClr font-bold" : "Dasboard-p  m-0 text-start greenclr"}>: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">
@@ -96,7 +100,7 @@ export default function UserDashboard () {
                                 <p className="Dasboard-p font-bold m-0 text-start">Ticket Status</p>
                             </div>
                             <div className="col-6 p-0">
-                                <p className="Dasboard-p  m-0 text-start">: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
+                                <p className={x.TicketStatus == 0?"Dasboard-p  m-0 text-start Redclr" :x.TicketStatus == 1? "Dasboard-p  m-0 text-start YellowClr font-bold" : "Dasboard-p  m-0 text-start greenclr"}>: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
                             </div>
                         </div>
                         <div className="row w-100 mx-auto">

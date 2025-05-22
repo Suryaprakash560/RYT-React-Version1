@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../reuseablecomponent/inputfield";
-
-export default function Settings () {
+import {checkemailpassword,updateuserpassword} from '../methods/method'
+export default function Settings ({UserEmailId}) {
 
     const [SettingsInfo, setSettingsInfo] = useState({
-        Email : '',
+        Email : atob(UserEmailId),
         OldPassword : '',
         NewPassword : '',
         error : {}
     })
+    
+    useEffect(()=>{
+        // onload()
+        
+    },[])
+
+
+    // const onload = async() =>{
+    //     await setSettingsInfo({
+    //         ...SettingsInfo,
+    //         Email : atob(UserEmailId)
+    //     })
+    // }
     const Handlechange = (name,e) =>{
         setSettingsInfo({
             ...SettingsInfo,
@@ -16,7 +29,7 @@ export default function Settings () {
         })
     }
 
-    const OnBlurvalidation=(name)=>{
+    const OnBlurvalidation=async(name)=>{
         let Error = SettingsInfo.error;
         let flage = true
         if(SettingsInfo[name] == ''){
@@ -25,7 +38,18 @@ export default function Settings () {
         }
         else{
             Error[name] = ''
-            flage = true
+            if(name == 'OldPassword'){
+                await checkemailpassword(btoa(SettingsInfo.Email),btoa(SettingsInfo[name])).then(res=>{
+                    if(res[0].Status == 1){
+                        Error[name] = ""
+                        flage = true
+                    }
+                    else{
+                        Error[name] = "* Invalid Username Password"
+                        flage = false
+                    }
+                })
+            }
         }
         setSettingsInfo({
             ...SettingsInfo,
@@ -42,6 +66,17 @@ export default function Settings () {
                 error : {}
         })
     }
+
+    const Changesnewpassword =async() =>{
+        let Email = await OnBlurvalidation("Email")
+        let oldpass = await OnBlurvalidation("OldPassword")
+        let Newpass = await OnBlurvalidation("NewPassword")
+        if(Email && oldpass && Newpass){
+            updateuserpassword(btoa(SettingsInfo.Email),btoa(SettingsInfo.OldPassword),btoa(SettingsInfo.NewPassword)).then(res=>{
+                Cancelsettings()
+            })
+        }
+    }
     return(
         <div className="Inner_Contaner width-settings mx-auto">
             <div className="Inner-pages-container">
@@ -50,29 +85,32 @@ export default function Settings () {
                      <InputField
                         inputchange={(e)=>{Handlechange("Email",e)}}
                         Blur = {()=>{OnBlurvalidation("Email")}}
-                        value = {SettingsInfo.Email}
+                        inputvaluevalue = {SettingsInfo.Email}
                         placeholder = "* Email"
                         classname = "styled-input mb-1 w-100"
                         errors= {SettingsInfo.error}
                         InputName = "Email"
+                        Inputtype = 'text'
                         />
                         <InputField
                         inputchange={(e)=>{Handlechange("OldPassword",e)}}
                         Blur = {()=>{OnBlurvalidation("OldPassword")}}
-                        value = {SettingsInfo.OldPassword}
+                        inputvaluevalue = {SettingsInfo.OldPassword}
                         placeholder = "* Password"
                         classname = "styled-input mb-1 w-100"
                         errors= {SettingsInfo.error}
                         InputName = "OldPassword"
+                        Inputtype = 'password'
                         />
                         <InputField
                         inputchange={(e)=>{Handlechange("NewPassword",e)}}
                         Blur = {()=>{OnBlurvalidation("NewPassword")}}
-                        value = {SettingsInfo.NewPassword}
+                        inputvaluevalue = {SettingsInfo.NewPassword}
                         placeholder = "* New Password"
                         classname = "styled-input mb-1 w-100"
                         errors= {SettingsInfo.error}
                         InputName = "NewPassword"
+                        Inputtype = 'password'
                         />
                     {/* <input type="text" placeholder="*Email"  className="styled-input mb-1 w-100" value={SettingsInfo.Email} onChange={(e)=>{Handlechange("Email",e)}} onBlur={()=>{OnBlurvalidation("Email")}}/>
                     <div className="error-class mb-1 text-start">{SettingsInfo.error.Email}</div> */}
@@ -86,7 +124,7 @@ export default function Settings () {
                         <button onClick={Cancelsettings}>Cancel</button>
                     </div>
                     <div className="Login-btn mt-3 ">
-                        <button >Save</button>
+                        <button onClick={Changesnewpassword}>Save</button>
                     </div>
                 </div>
             </div>

@@ -33,11 +33,44 @@ export default function UserManagmnt (){
         await Getalluser().then(res=>{
             UserArray = res.length>0?res:[]
         })
-        setUserInfo({
-            ...UserInfo,
-            RoleOptions : Roles,
-            AlluserArray : UserArray 
-        })
+        if (window.location.search !== '') {
+            let resp = window.location.search.substring(1, window.location.search.length);
+            resp = atob(resp)
+            let UserIdobj = JSON.parse(resp)
+            if(UserIdobj.UserId !=undefined || UserIdobj.UserId !=''){
+               let editeduser = UserArray.filter(x=>x._id ==UserIdobj.UserId)[0]
+               let UserRole = Roles.filter(y=>y.RoleId == editeduser.RoleId.RoleId)[0]
+               setUserInfo({
+                    ...UserInfo,
+                    UserId : UserIdobj.UserId,
+                    Name : editeduser.UserName,
+                    Email : atob(editeduser.Email),
+                    MobileNuber : editeduser.MobileNumber,
+                    Desigination : editeduser.Desigination,
+                    Password : atob(editeduser.Password), 
+                    UserType : UserRole,
+                    ProfileImage : editeduser.ProfileImage,
+                    RoleOptions : Roles,
+                    AlluserArray : UserArray 
+                })
+            }
+            else{
+            setUserInfo({
+                ...UserInfo,
+                RoleOptions : Roles,
+                AlluserArray : UserArray 
+            })
+            }
+            
+        }
+        else{
+            setUserInfo({
+                ...UserInfo,
+                RoleOptions : Roles,
+                AlluserArray : UserArray 
+            })
+            }
+        
     }
     const Handlechange = (name,e) =>{
         setUserInfo({
@@ -200,8 +233,8 @@ export default function UserManagmnt (){
                             <div className="row">
                                 {UserInfo.AlluserArray.length>0?
                                 UserInfo.AlluserArray.map((x,i)=>
-                                     <div className="col-6 col-sm-6 col-lg-4 col-md-4 col-xl-4 mb-2" key={i}>
-                                    <div className="UserCard text-center h-100">
+                                     <div className="col-6 col-sm-6 col-lg-4 col-md-4 col-xl-4 mb-4 " key={i}>
+                                    <div className={x._id == UserInfo.UserId?"UserCard text-center h-100 tansform" : "UserCard text-center h-100"}>
                                         <div className="menuIcon d-flex" >
                                             <div className="Edit-dlt me-2" onClick={()=>{EditUser(x)}}>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -222,7 +255,7 @@ export default function UserManagmnt (){
                                 </div>
                                 )
                                :
-                                <>No Records</>}
+                                <div className="no-record-clr d-flex justify-content-center align-items-center w-100 h-auto">No Records</div>}
                             </div>
                         </div>
                     </div>
@@ -237,6 +270,7 @@ export default function UserManagmnt (){
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
                             InputName = "Name"
+                            Inputtype = 'text'
                             />
                             <InputField
                             inputchange={(e)=>{Handlechange("Email",e)}}
@@ -246,6 +280,7 @@ export default function UserManagmnt (){
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
                             InputName = "Email"
+                            Inputtype = 'text'
                             />
                             <InputField
                             inputchange={(e)=>{Handlechange("MobileNuber",e)}}
@@ -255,6 +290,7 @@ export default function UserManagmnt (){
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
                             InputName = "MobileNuber"
+                            Inputtype = 'text'
                             />
                             <InputField
                             inputchange={(e)=>{Handlechange("Password",e)}}
@@ -264,6 +300,7 @@ export default function UserManagmnt (){
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
                             InputName = "Password"
+                            Inputtype = 'text'
                             />
                              <InputField
                             inputchange={(e)=>{Handlechange("Desigination",e)}}
@@ -273,6 +310,7 @@ export default function UserManagmnt (){
                             classname = "styled-input mb-1 w-100"
                             errors= {UserInfo.error}
                             InputName = "Desigination"
+                            Inputtype = 'text'
                             />
                         {/* <input type="text" placeholder="*Name"  className="styled-input mb-1 w-100" value={UserInfo.Name} onChange={(e)=>{Handlechange("Name",e)}} onBlur={()=>{OnBlurvalidation("Name")}}/>
                         <div className="error-class mb-1 text-start">{UserInfo.error.Name}</div> */}

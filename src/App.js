@@ -21,12 +21,14 @@ function App() {
   const [RolId ,setRoleId] = useState(0)
   const [Issession,setIssession] = useState(0)
   const [UserName ,setUserName] = useState('')
+  const [UserEmail ,setUserEmail] = useState('')
 
   useEffect(()=>{
     Getsession().then(res=>{
       setRoleId(res!=''?res[0].RoleId:0)
       setIssession(res!=''?res[0].Issession:0)
       setUserName(res!=''?res[0].UserName:'')
+      setUserEmail(res!=''?res[0].UserEmail:'')
     })
 
   },[])
@@ -52,7 +54,7 @@ function App() {
                 <Route path={Routing.SuperDashboard} element={<SuperDashboard  />} />
                 <Route path={Routing.UserManagement} element={<UserManagmnt  />} />
                 <Route path={Routing.TicketMananagment} element={<TicketManagment  />} />
-                <Route path={Routing.Settings} element={<Settings  />} />
+                <Route path={Routing.Settings} element={<Settings  UserEmailId={UserEmail}/>} />
                 <Route path={Routing.Dashboard} element={<UserDashboard  />} />
                 <Route path={Routing.SysticketManagment} element={<SysticketManagment  />} />
                 <Route path={Routing.SystemEngineerDashboard} element={<SysAdminDashboard  />} />

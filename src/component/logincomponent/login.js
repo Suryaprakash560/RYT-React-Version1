@@ -61,7 +61,6 @@ export default function Login(){
             UsersLogin(btoa(LoginInformation.UserName),btoa(LoginInformation.Password)).then(res=>{
                     if(res!=undefined){
                         if(res[0].Status !=undefined){
-                            console.log(res[0].Status)
                             Error["LoginErr"] = res[0].MSG
                             setLoginInformation({
                                 ...LoginInformation,
@@ -113,6 +112,7 @@ export default function Login(){
                                 classname = "styled-input mb-1 w-100"
                                 errors= {LoginInformation.error}
                                 InputName = "UserName"
+                                Inputtype = 'text'
                                 />
                                 {/* <input type="text" placeholder="User mail "  className="styled-input mb-1" value={LoginInformation.UserName} onChange={(e)=>{Handlechange("UserName",e)}} onBlur={()=>{OnBlurvalidation("UserName")}}/> */}
                                 {/* <div className="error-class mb-1 text-start">{LoginInformation.error.UserName}</div> */}
@@ -125,6 +125,7 @@ export default function Login(){
                                 classname = "styled-input mb-1 w-100"
                                 errors= {LoginInformation.error}
                                 InputName = "Password"
+                                Inputtype = 'password'
                                 />
                                 {/* <div className="error-class mb-1 text-start">{LoginInformation.error.Password}</div> */}
                             </div>

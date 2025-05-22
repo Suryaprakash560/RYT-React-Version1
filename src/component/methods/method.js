@@ -179,7 +179,7 @@ export function GetallSysadmTickets (){
     }))
 }
 
-export function UpdateTicket (TicketDescription,TicketStatus,SysAdminId,WorksDone,TicketId){
+export function UpdateTicket (TicketDescription,TicketStatus,SysAdminId,WorksDone,TicketId,UserId){
     return(axios({
         url : APIurl + '/api/updateticket',
         method : 'POST',
@@ -189,7 +189,8 @@ export function UpdateTicket (TicketDescription,TicketStatus,SysAdminId,WorksDon
            TicketStatus : TicketStatus,
            SysAdminId : SysAdminId,
            WorksDone : WorksDone,
-           TicketId : TicketId 
+           TicketId : TicketId,
+           UserId:UserId
         }
     }).then((res)=>{
         return res.data
@@ -205,6 +206,54 @@ export function GetallTickets (){
         withCredentials : true,
         data : {
            
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function checkemailpassword (Email,Password){
+    return(axios({
+        url : APIurl + '/api/checkemailpassword',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+           Email : Email,
+           Password : Password
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function updateuserpassword (Email,Password,Newpassword){
+    return(axios({
+        url : APIurl + '/api/updateuserpassword',
+        method : 'POST',
+        withCredentials : true,
+        data : {
+           Email : Email,
+           Password : Password,
+           Newpassword:Newpassword
+        }
+    }).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        console.log(err)
+    }))
+}
+
+export function Deleteticket (TicketId){
+    return(axios({
+        url : APIurl + '/api/deleteticket',
+        method : 'DELETE',
+        withCredentials : true,
+        data : {
+           TicketId : TicketId
         }
     }).then((res)=>{
         return res.data

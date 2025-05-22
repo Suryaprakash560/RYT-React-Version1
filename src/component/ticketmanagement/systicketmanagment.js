@@ -134,7 +134,7 @@ export default function SysticketManagment (){
             error : Error
             })
             if(wrkdone && StatusSeleted){
-                UpdateTicket(SysTicketDetsils.Description,SysTicketDetsils.TicketStatus.value,SysTicketDetsils.AdmId,SysTicketDetsils.Worksdone,SysTicketDetsils.TicketId).then(res=>{
+                UpdateTicket(SysTicketDetsils.Description,SysTicketDetsils.TicketStatus.value,SysTicketDetsils.AdmId,SysTicketDetsils.Worksdone,SysTicketDetsils.TicketId,SysTicketDetsils.RaisedById).then(res=>{
                     GetallUpdatedtickets()
                 })
             }
@@ -154,7 +154,7 @@ export default function SysticketManagment (){
             error : Error
             })
           if(StatusSeleted){
-                UpdateTicket(SysTicketDetsils.Description,SysTicketDetsils.TicketStatus.value,SysTicketDetsils.AdmId,SysTicketDetsils.Worksdone,SysTicketDetsils.TicketId).then(res=>{
+                UpdateTicket(SysTicketDetsils.Description,SysTicketDetsils.TicketStatus.value,SysTicketDetsils.AdmId,SysTicketDetsils.Worksdone,SysTicketDetsils.TicketId,SysTicketDetsils.RaisedById).then(res=>{
                     GetallUpdatedtickets()
                 })
             }  

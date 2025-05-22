@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import Select from "react-select";
 import CustomStyle from '../customstyle/customstyle';
-import {Getalluser,Saveticket,Getallusertickets,UpdateTicket} from '../methods/method'
+import {Getalluser,Saveticket,Getallusertickets,UpdateTicket,Deleteticket} from '../methods/method'
 // import InputField from "../reuseablecomponent/inputfield";
 export default function Userticket (){
     const [UserTicket , setUserTicket] = useState({
@@ -88,7 +88,7 @@ export default function Userticket (){
         })
         setUserTicket({
             ...UserTicket,
-            SysAdminArray : {},
+            SelectedAdmin : {},
             TicketArray:TicketArray,
             Issue:'',
             error:{},
@@ -135,6 +135,12 @@ export default function Userticket (){
             TicketStatus :data.TicketStatus
         })
     }
+
+    const DeleteuserTicket = (TicketId) =>{
+        Deleteticket(TicketId).then(res=>{
+            Getalltickets()
+        })
+    }
     return(
          <div className="Inner_Contaner">
             <h2 className="Heading-h2">Ticket Management</h2>
@@ -152,7 +158,7 @@ export default function Userticket (){
                                                     <div className="Edit-dlt me-2" onClick={()=>{EditTicket(ele)}}>
                                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                                     </div>
-                                                    <div className="Edit-dlt" >
+                                                    <div className="Edit-dlt" onClick={()=>{DeleteuserTicket(ele._id)}} >
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </div>
                                                 </div>
@@ -170,7 +176,7 @@ export default function Userticket (){
                                                         <p className="normal-p-tag font-bold m-0 text-start">Ticket Status</p>
                                                     </div>
                                                     <div className="col-7 p-0">
-                                                        <p className="normal-p-tag  m-0 text-start">: {ele.TicketStatus == 0?'Pending':ele.TicketStatus == 1?"InProcess":"Resolved"}</p>
+                                                        <p className={ele.TicketStatus == 0?"normal-p-tag  m-0 text-start Redclr" :ele.TicketStatus == 1? "normal-p-tag  m-0 text-start YellowClr font-bold" : "normal-p-tag  m-0 text-start greenclr"}>: {ele.TicketStatus == 0?'Pending':ele.TicketStatus == 1?"InProcess":"Resolved"}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row w-100 mx-auto">

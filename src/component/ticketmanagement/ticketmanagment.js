@@ -5,7 +5,7 @@ import {Getalluser,GetallTickets,UpdateTicket} from '../methods/method';
 
 export default function TicketManagment () {
     const [TicketInfo , setTicketInfo] = useState({
-        TicketId : 0,
+        TicketId : '',
         TicketsArray : [],
         AdminArray : [],
         SelectedAdmin : {}
@@ -20,20 +20,44 @@ export default function TicketManagment () {
             await Getalluser().then(res=>{
                     UserArray = res.length>0?res.filter(x=>x.RoleId.RoleId == 2):[]
                 })
-                 let valuelable=UserArray.map((x,i)=>{
-            return({
-                value : x._id,
-                label  : x.UserName
-            })
-        })
+                let valuelable=UserArray.map((x,i)=>{
+                    return({
+                        value : x._id,
+                        label  : x.UserName
+                    })
+                })
             await GetallTickets().then(res=>{
                     TicketArray = res.length>0?res:[]
                 })
-            setTicketInfo({
-                ...TicketInfo,
-                AdminArray : valuelable,
-                TicketsArray : TicketArray
-            })
+                if (window.location.search !== '') {
+                    let resp = window.location.search.substring(1, window.location.search.length);
+                    resp = atob(resp)
+                    let Ticketobj = JSON.parse(resp)
+                    if(Ticketobj.Ticketid !=undefined || Ticketobj.Ticketid !=''){
+                        setTicketInfo({
+                        ...TicketInfo,
+                        TicketId : Ticketobj.Ticketid,
+                         AdminArray : valuelable,
+                        TicketsArray : TicketArray
+                    })
+                    }
+                    else{
+                    setTicketInfo({
+                        ...TicketInfo,
+                        AdminArray : valuelable,
+                        TicketsArray : TicketArray
+                    })
+                    }
+                    
+                }
+                else{
+                setTicketInfo({
+                    ...TicketInfo,
+                    AdminArray : valuelable,
+                    TicketsArray : TicketArray
+                })
+                }
+            
         }
 
     const SelectRole = (Selectedoption) =>{
@@ -48,10 +72,21 @@ export default function TicketManagment () {
             SelectedAdmin:{}
         })
     }
-
+    const GetAllAdmTickets = async() =>{
+        let TicketArray = []
+        await GetallTickets().then(res=>{
+                    TicketArray = res.length>0?res:[]
+                })
+            setTicketInfo({
+                ...TicketInfo,
+                TicketsArray : TicketArray,
+                TicketId : '',
+                SelectedAdmin : {}
+            })
+    }
     const AssignnewAdmin = (data) =>{
-        UpdateTicket(data.TicketDescription,data.TicketStatus,TicketInfo.SelectedAdmin.value,data.WorksDone,data._id).then(res=>{
-            console.log(res)
+        UpdateTicket(data.TicketDescription,data.TicketStatus,TicketInfo.SelectedAdmin.value,data.WorksDone,data._id,data.UserId._id).then(res=>{
+            GetAllAdmTickets()
             })
     }
     return(
@@ -62,7 +97,7 @@ export default function TicketManagment () {
                     {TicketInfo.TicketsArray.length>0?
                     TicketInfo.TicketsArray.map((x,i)=>
                         <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
-                        <div className="content-div h-100">
+                        <div className={x._id == TicketInfo.TicketId? "content-div h-100 tansform" : "content-div h-100 "}>
                             <div className="row w-100 mx-auto">
                                 <div className="col-6 p-0">
                                     <p className="normal-p-tag font-bold m-0 text-start">Ticket Raised By</p>
@@ -92,7 +127,7 @@ export default function TicketManagment () {
                                     <p className="normal-p-tag font-bold m-0 text-start">Ticket Status</p>
                                 </div>
                                 <div className="col-6 p-0">
-                                    <p className="normal-p-tag  m-0 text-start">: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
+                                    <p className={x.TicketStatus == 0?"normal-p-tag  m-0 text-start Redclr" :x.TicketStatus == 1? "normal-p-tag  m-0 text-start YellowClr font-bold" : "normal-p-tag  m-0 text-start greenclr"}>: {x.TicketStatus == 0?'Pending':x.TicketStatus == 1?"InProcess":"Resolved"}</p>
                                 </div>
                             </div>
                             <div className="row w-100 mx-auto">
