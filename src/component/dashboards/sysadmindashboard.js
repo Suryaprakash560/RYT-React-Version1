@@ -68,7 +68,7 @@ export default function SysAdminDashboard () {
                 {/* <button className="Btn-class">View Tickets</button> */}
             </div>
             <div className="Inside-Content-container dark-mode d-flex">
-                {SysadmDashboard.TicketsArray.length > 0?
+                {SysadmDashboard.TicketsArray.filter(ele=>ele.TicketStatus !=2).length > 0?
                 SysadmDashboard.TicketsArray.filter(ele=>ele.TicketStatus !=2).map((x,i)=>
                     <div className=" col-12 col-sm-6 col-lg-4 col-md-4 col-lg-4 ms-1 me-2">
                     <div className="content-div h-100">

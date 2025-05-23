@@ -155,9 +155,10 @@ export default function Userticket (){
                                         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2" key={i}>
                                             <div className="content-div h-100 position-relative">
                                                 <div className="menuIcon d-flex" >
+                                                    {ele.TicketStatus == 0 &&
                                                     <div className="Edit-dlt me-2" onClick={()=>{EditTicket(ele)}}>
                                                         <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                    </div>
+                                                    </div>}
                                                     <div className="Edit-dlt" onClick={()=>{DeleteuserTicket(ele._id)}} >
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </div>

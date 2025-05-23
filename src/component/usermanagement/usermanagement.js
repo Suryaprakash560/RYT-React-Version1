@@ -102,7 +102,7 @@ export default function UserManagmnt (){
                     flage = false  
                 }
             }
-            if(name = 'MobileNuber'){
+            if(name == 'MobileNuber'){
                 const indianMobileRegex = /^[6-9]\d{9}$/;
                 let validmobile = indianMobileRegex.test(UserInfo[name])
                 if(validmobile){
